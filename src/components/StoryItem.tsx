@@ -3,7 +3,8 @@ import React from 'react'
 import api from '../api'
 import Loading from './Loading'
 import { Story, Comment } from '../interface'
-import { Button } from 'react-bootstrap'
+import moment from 'moment'
+import {CommentList} from './CommentList'
 
 interface Props {
   id: number
@@ -12,39 +13,25 @@ interface Props {
 export default (props: Props) => {
   const { id } = props
   const [story, setStory] = useState<null | Story>(null)
-  const [showComments, setShowComments] = useState(false)
-  const [comments, setComments] = useState<null | Comment[]>(null)
 
   useEffect(() => {
     api.getStoryContent(id)
       .then(data => setStory(data))
   }, [id])
 
-  useEffect(() => {
-    if (story === null)
-      return
-    if (!showComments)
-      return
-    api.getStoryComments(story)
-      .then(comments => setComments(comments))
-  }, [showComments])
-
   if (story === null)
     return <Loading />
 
   return (
-    <div>
-      {
-        story.title
-      }
-      <Button onClick={() => setShowComments(!showComments)}>
-        {
-          showComments ? 'Close' : 'View Comments'
-        }
-      </Button>
-      {
-        showComments && comments ? comments.map(d => <div>{d.text}</div>) : null
-      }
+    <div className='story-item'>
+      <div className='story-item-header'>
+        <span className='story-item-type'>{story.type}</span>
+        <span>By {story.by} on {moment.unix(story.time).format('DD-MMM-YYYY')}</span>
+      </div>
+      <div>
+        <a href={story.url} target='_blank'>{story.title}</a>
+      </div>
+      <CommentList parent={story} level={1} />
     </div>
   )
 

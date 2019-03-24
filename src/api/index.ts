@@ -16,10 +16,10 @@ const api = {
     return api.get(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
   },
 
-  getStoryComments: async function (story: Story): Promise<Comment[]> {
-    if (!story.kids)
+  getComments: async function (storyOrComment: Story | Comment): Promise<Comment[]> {
+    if (!storyOrComment.kids)
       return Promise.resolve([])
-    const commentIds = story.kids.slice(0, 20)
+    const commentIds = storyOrComment.kids.slice(0, 20)
     const pros = commentIds.map(d => api.get(`https://hacker-news.firebaseio.com/v0/item/${d}.json`))
     return Promise.all(pros)
   }

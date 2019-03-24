@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import {Container, Col} from 'react-bootstrap'
 import React from 'react'
 import Loading from './Loading'
 import StoryItem from './StoryItem'
@@ -19,11 +20,11 @@ export default () => {
     return <div>Nothing found</div>
 
   return (
-    <div className='story-list'>
-      {
-        stories.map(d => <StoryItem key={d} id={d} />)
-      }
-    </div>
+    <Container className='story-list'>
+    {
+      stories.map(d => <StoryItem key={d} id={d} />)
+    }
+    </Container>
   )
 
 
