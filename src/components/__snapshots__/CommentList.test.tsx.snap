@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render Comment correctly 1`] = `
+<div
+  className="comment"
+>
+  <div
+    className="weak-font"
+  >
+    By 
+    norvig
+     on 
+    24-Aug-2011
+  </div>
+  <div
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Aw shucks, guys ... you make me blush with your compliments.<p>Tell you what, Ill make a deal: I'll keep writing if you keep reading. K?",
+      }
+    }
+  />
+  <div
+    className="comment-list"
+  >
+    <div
+      className="comment-list-toggle"
+    >
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        7
+         
+        Replies
+         (
+        +
+        )
+      </a>
+    </div>
+    <div
+      className="comment-list-inner hidden"
+      style={
+        Object {
+          "paddingLeft": 40,
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`Should render CommentList correctly 1`] = `
+<div
+  className="comment-list"
+>
+  <div
+    className="comment-list-toggle"
+  >
+    <a
+      href="#"
+      onClick={[Function]}
+    >
+      33
+       
+      Comments
+       (
+      +
+      )
+    </a>
+  </div>
+  <div
+    className="comment-list-inner hidden"
+    style={
+      Object {
+        "paddingLeft": 20,
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Should render correctly 1`] = `
+<div
+  className="comment-list"
+>
+  <div
+    className="comment-list-toggle"
+  >
+    <a
+      href="#"
+      onClick={[Function]}
+    >
+      33
+       
+      Comments
+       (
+      +
+      )
+    </a>
+  </div>
+  <div
+    className="comment-list-inner hidden"
+    style={
+      Object {
+        "paddingLeft": 20,
+      }
+    }
+  />
+</div>
+`;

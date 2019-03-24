@@ -5,6 +5,7 @@ const api = {
   get: async function (url: string): Promise<any> {
     return fetch(url)
       .then(resp => resp.json())
+      .catch(err => alert(err.message))
   },
 
   getTopTenStories: async function (): Promise<number[]> {
