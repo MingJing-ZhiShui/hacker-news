@@ -5,6 +5,7 @@ import Loading from './Loading'
 import { Story, Comment } from '../interface'
 import moment from 'moment'
 import {CommentList} from './CommentList'
+import './StoryItem.scss'
 
 interface Props {
   id: number
@@ -25,8 +26,7 @@ export default (props: Props) => {
   return (
     <div className='story-item'>
       <div className='story-item-header'>
-        <span className='story-item-type'>{story.type}</span>
-        <span>By {story.by} on {moment.unix(story.time).format('DD-MMM-YYYY')}</span>
+        By {story.by} on {moment.unix(story.time).format('DD-MMM-YYYY')}
       </div>
       <div>
         <a href={story.url} target='_blank'>{story.title}</a>

@@ -14,7 +14,7 @@ export default () => {
   }, [])
 
   if (stories === null)
-    return <Loading />
+    return <Container><Loading /></Container>
 
   if (stories.length === 0)
     return <div>Nothing found</div>
@@ -26,6 +26,4 @@ export default () => {
     }
     </Container>
   )
-
-
 }

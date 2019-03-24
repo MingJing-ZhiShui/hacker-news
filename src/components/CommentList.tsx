@@ -4,6 +4,8 @@ import {Comment as CommentInf, Story  as StoryInf} from '../interface'
 import {useEffect, useState, SyntheticEvent} from 'react'
 import Loading from './Loading'
 import cx from 'classnames'
+import moment from 'moment'
+import './CommentList.scss'
 
 interface CommentProps {
   comment : CommentInf,
@@ -16,6 +18,9 @@ const Comment = (props : CommentProps) => {
 
   return (
     <div className='comment'>
+      <div className='weak-font'>
+        By {comment.by} on {moment.unix(comment.time).format('DD-MMM-YYYY')}
+      </div>
       <div dangerouslySetInnerHTML={{__html : comment.text}} />
       <CommentList parent={comment} level={level + 1} />
     </div>
@@ -33,6 +38,7 @@ const CommentList = (props : CommentListProps) => {
   const {parent, level} = props
   const [show, setShow] = useState(false)
   const [comments, setComments] = useState<null | CommentInf[]>(null)
+  const [loading, setLoading] = useState(false)
 
   const handleToggle = (e : SyntheticEvent) => {
     e.preventDefault()
@@ -42,25 +48,33 @@ const CommentList = (props : CommentListProps) => {
   useEffect(() => {
     if(!show)
       return;
-    if(comments)
-      return
-    api.getComments(parent)
-      .then(comments => setComments(comments))
+    if(!comments) {
+      setLoading(true)
+      api.getComments(parent)
+        .then(comments => {
+          setComments(comments)
+          setLoading(false)
+        })
+    }
   }, [show])
 
   return (
     <div className='comment-list'>
       <div className='comment-list-toggle'>
         <a href='#' onClick={handleToggle}>
-          {parent.kids ? parent.kids.length : 0} Comments ({show ? '-' : '+'})
+          {parent.kids ? parent.kids.length : 0} {parent.type === 'story' ? 'Comments' : 'Replies'} ({show ? '-' : '+'})
         </a>
       </div>
-      <div className={cx('comment-list-inner', {hidden : !show})}
-        style={{paddingLeft : level * 20}}>
       {
-        comments ? comments.map(d => <Comment comment={d} key={d.id} level={level}/>) : null
+        loading ? <Loading /> : (
+          <div className={cx('comment-list-inner', {hidden : !show})}
+            style={{paddingLeft : level * 20}}>
+          {
+            comments ? comments.map(d => <Comment comment={d} key={d.id} level={level}/>) : null
+          }
+          </div>
+        )
       }
-      </div>
     </div>
   )
 }
